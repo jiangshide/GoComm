@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"net"
 	"os"
+	"fmt"
 	"io/ioutil"
 	"path"
 	"compress/gzip"
