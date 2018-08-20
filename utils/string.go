@@ -8,9 +8,30 @@ import (
 	"strings"
 	"strconv"
 	"unicode/utf8"
+	"crypto/md5"
 )
 
 var emailPattern = regexp.MustCompile("[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[a-zA-Z0-9](?:[\\w-]*[\\w])?")
+
+func Password(len int, pwdO string) (pwd string, salt string) {
+	defaultLen := 4
+	if len < defaultLen {
+		len = defaultLen
+	}
+	salt = GetRandomString(len)
+	defaultPwd := "jsd123"
+	if pwdO != "" {
+		defaultPwd = pwdO
+	}
+	pwd = Md5([]byte(defaultPwd + salt))
+	return pwd, salt
+}
+
+func Md5(buf []byte) string {
+	hash := md5.New()
+	hash.Write(buf)
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
 
 func SizeFormat(size float64) string {
 	units := []string{"Byte", "KB", "MB", "GB", "TB"}
