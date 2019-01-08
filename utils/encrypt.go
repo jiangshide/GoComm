@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"fmt"
 	"io"
 	"crypto/rand"
 	"encoding/base64"
@@ -12,16 +13,22 @@ import (
 	"errors"
 )
 
-func Md5(s string) string {
+func Md5ToStr(s string) string {
 	h := md5.New()
 	h.Write([]byte(s))
 	return hex.EncodeToString(h.Sum(nil))
 }
 
+func Md5(buf []byte) string {
+	hash := md5.New()
+	hash.Write(buf)
+	return fmt.Sprintf("%x", hash.Sum(nil))
+}
+
 func GetGuid() (string, error) {
 	b := make([]byte, 48)
 	_, err := io.ReadFull(rand.Reader, b)
-	return Md5(base64.URLEncoding.EncodeToString(b)), err
+	return Md5ToStr(base64.URLEncoding.EncodeToString(b)), err
 }
 
 var alphaNum = []byte(`0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`)

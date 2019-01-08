@@ -2,13 +2,12 @@ package utils
 
 import (
 	"fmt"
-	"time"
-	"regexp"
 	"math/rand"
-	"strings"
+	"regexp"
 	"strconv"
+	"strings"
+	"time"
 	"unicode/utf8"
-	"crypto/md5"
 )
 
 var emailPattern = regexp.MustCompile("[\\w!#$%&'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[a-zA-Z0-9](?:[\\w-]*[\\w])?")
@@ -25,12 +24,6 @@ func Password(len int, pwdO string) (pwd string, salt string) {
 	}
 	pwd = Md5([]byte(defaultPwd + salt))
 	return pwd, salt
-}
-
-func Md5(buf []byte) string {
-	hash := md5.New()
-	hash.Write(buf)
-	return fmt.Sprintf("%x", hash.Sum(nil))
 }
 
 func SizeFormat(size float64) string {
