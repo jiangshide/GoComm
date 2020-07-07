@@ -199,6 +199,12 @@ func GetRandomName() string {
     return fmt.Sprintf("%s%s", fmt.Sprint(lastName[rand.Intn(lastNameLen-1)]), first)
 }
 
+func TimeStamp(str string)int64{
+	beego.Info("-------str:",str)
+	date,_ := time.Parse("2006-01-02 15:04:05",str)
+	return date.Unix()
+}
+
 /**
 * @des 时间转换函数
 * @param atime string 要转换的时间戳（秒）
