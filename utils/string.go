@@ -200,7 +200,6 @@ func GetRandomName() string {
 }
 
 func TimeStamp(str string)int64{
-	beego.Info("-------str:",str)
 	date,_ := time.Parse("2006-01-02 15:04:05",str)
 	return date.Unix()
 }
